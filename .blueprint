@@ -1,0 +1,19 @@
+created:
+    - database/factories/PostFactory.php
+    - database/factories/TagFactory.php
+    - database/factories/CommentFactory.php
+    - database/factories/ReplyFactory.php
+    - database/migrations/2024_01_16_210735_create_posts_table.php
+    - database/migrations/2024_01_16_210736_create_tags_table.php
+    - database/migrations/2024_01_16_210737_create_comments_table.php
+    - database/migrations/2024_01_16_210738_create_replies_table.php
+    - app/Models/Post.php
+    - app/Models/Tag.php
+    - app/Models/Comment.php
+    - app/Models/Reply.php
+models:
+    User: {  }
+    Post: { title: 'string:100', slug: 'string:150', content: text, user_id: 'id unsigned foreign ondelete:cascade', tag_id: 'id unsigned foreign nullable', created_at: timestamp, updated_at: 'timestamp onupdate:current_timestamp', timestamps: false, relationships: { belongsTo: User, hasMany: Tag } }
+    Tag: { tag_name: 'string:100', created_at: timestamp, updated_at: 'timestamp onupdate:current_timestamp', timestamps: false, relationships: { belongsTo: Post } }
+    Comment: { content: text, user_id: 'id unsigned foreign ondelete:cascade', post_id: 'id unsigned foreign ondelete:cascade', created_at: timestamp, updated_at: 'timestamp onupdate:current_timestamp', timestamps: false, relationships: { belongsTo: 'User,Post' } }
+    Reply: { content: text, user_id: 'id unsigned foreign ondelete:cascade', comment_id: 'id unsigned foreign ondelete:cascade', created_at: timestamp, updated_at: 'timestamp onupdate:current_timestamp', timestamps: false, relationships: { belongsTo: 'User,Comment' } }
